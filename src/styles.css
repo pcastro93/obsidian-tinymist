@@ -18,18 +18,8 @@
 
 	--tinymist-selection-alpha: 0.22;
 	--tinymist-selection-alpha-blurred: 0.12;
-	--tinymist-selection: hsla(
-		var(--accent-h),
-		var(--accent-s),
-		var(--accent-l),
-		var(--tinymist-selection-alpha)
-	);
-	--tinymist-selection-blurred: hsla(
-		var(--accent-h),
-		var(--accent-s),
-		var(--accent-l),
-		var(--tinymist-selection-alpha-blurred)
-	);
+	--tinymist-selection: hsla(var(--accent-h), var(--accent-s), var(--accent-l), var(--tinymist-selection-alpha));
+	--tinymist-selection-blurred: hsla(var(--accent-h), var(--accent-s), var(--accent-l), var(--tinymist-selection-alpha-blurred));
 
 	.cm-editor {
 		height: 100%;
@@ -107,7 +97,6 @@
 		color: var(--text-normal);
 		box-shadow: var(--shadow-s);
 	}
-
 }
 
 .tinymist-hover {

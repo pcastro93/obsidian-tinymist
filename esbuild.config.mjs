@@ -13,30 +13,38 @@ https://github.com/wilfriedago/obsidian-tinymist
 
 const prod = process.argv[2] === 'production'
 const outDir = 'dist'
+const sourceDir = 'src'
 
 /**
  * `dist/` is the complete plugin folder, not just the bundle: Obsidian loads a
  * plugin from a directory containing `main.js`, `manifest.json` and
- * `styles.css` side by side. Copying the two static files in alongside the
- * bundle means `dist/` can be symlinked straight into a vault's plugins folder,
- * and the release workflow has one directory to upload from.
+ * `styles.css` side by side. esbuild writes the first two; copying the manifest
+ * in alongside them means `dist/` can be symlinked straight into a vault's
+ * plugins folder, and the release workflow has one directory to upload from.
  */
-const copyStaticAssets = {
-	name: 'copy-static-assets',
+const copyManifest = {
+	name: 'copy-manifest',
 	setup(build) {
 		build.onEnd(async (result) => {
 			if (result.errors.length > 0) {
 				return
 			}
+
 			await mkdir(outDir, { recursive: true })
-			await Promise.all([copyFile('manifest.json', `${outDir}/manifest.json`), copyFile('styles.css', `${outDir}/styles.css`)])
+
+			await copyFile('manifest.json', `${outDir}/manifest.json`)
 		})
 	}
 }
 
 const context = await esbuild.context({
 	banner: { js: banner },
-	entryPoints: ['src/main.ts'],
+	// The stylesheet is an entry point rather than a copied file, so it is
+	// minified with the bundle and `pnpm dev` rebuilds it when it changes.
+	entryPoints: [
+		{ in: `${sourceDir}/main.ts`, out: 'main' },
+		{ in: `${sourceDir}/styles.css`, out: 'styles' }
+	],
 	bundle: true,
 	// Obsidian supplies these at runtime. Bundling our own copy of the
 	// CodeMirror packages would create a second, incompatible CM6 instance.
@@ -62,9 +70,9 @@ const context = await esbuild.context({
 	logLevel: 'info',
 	sourcemap: prod ? false : 'inline',
 	treeShaking: true,
-	outfile: `${outDir}/main.js`,
+	outdir: outDir,
 	minify: prod,
-	plugins: [copyStaticAssets],
+	plugins: [copyManifest],
 	define: {
 		'process.env.NODE_ENV': JSON.stringify(prod ? 'production' : 'development')
 	}
