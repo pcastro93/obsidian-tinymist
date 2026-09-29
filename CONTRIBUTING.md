@@ -30,16 +30,19 @@ You also need Tinymist on your machine — `brew install tinymist`, or see the
 README. The integration tests skip themselves without it, so you can work on
 most of the plugin either way.
 
-`pnpm install` also installs a `commit-msg` hook through
-[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks). It runs
-[commitlint](https://commitlint.js.org) with the Conventional Commits preset
-on each message as it is written (see [Pull requests](#pull-requests)).
-`fixup!`, `squash!` and merge subjects pass. Both tools are configured in
-`package.json`; after changing the hooks there, run `pnpm exec simple-git-hooks`
-to apply them.
+`pnpm install` also installs git hooks through
+[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks):
 
-`git commit --no-verify` skips the hook once; `SKIP_SIMPLE_GIT_HOOKS=1` skips it
-for a whole shell session.
+| Hook         | Does                                                                                                                                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `commit-msg` | Runs [commitlint](https://commitlint.js.org) with the Conventional Commits preset on each message as it is written (see [Pull requests](#pull-requests)). `fixup!`, `squash!` and merge subjects pass         |
+| `pre-push`   | Runs `pnpm build` when the push updates `develop`, and refuses the push if it fails. Pushes to any other branch are not checked. It builds your working tree, so commit or stash other changes before pushing |
+
+Both tools are configured in `package.json`; after changing the hooks there, run
+`pnpm exec simple-git-hooks` to apply them.
+
+`--no-verify` skips either hook once; `SKIP_SIMPLE_GIT_HOOKS=1` skips them for a
+whole shell session.
 
 ### Running it in Obsidian
 

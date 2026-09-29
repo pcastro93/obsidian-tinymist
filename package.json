@@ -71,7 +71,8 @@
     "vitest": "^5.0.2"
   },
   "simple-git-hooks": {
-    "commit-msg": "pnpm exec commitlint --edit \"$1\""
+    "commit-msg": "pnpm exec commitlint --edit \"$1\"",
+    "pre-push": "if grep -q ' refs/heads/develop '; then pnpm build; fi"
   },
   "commitlint": {
     "extends": [
