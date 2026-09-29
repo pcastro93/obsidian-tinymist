@@ -38,6 +38,7 @@
     "fmt:fix": "oxfmt --write",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
+    "prepare": "simple-git-hooks",
     "test": "vitest run",
     "test:integration": "vitest run tests/integration",
     "test:unit": "vitest run tests/unit",
@@ -57,14 +58,25 @@
     "@codemirror/search": "6.7.2",
     "@codemirror/state": "6.5.0",
     "@codemirror/view": "6.38.6",
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
     "@types/node": "^26.6.3",
     "esbuild": "0.28.2",
     "eslint-plugin-obsidianmd": "0.4.2",
     "obsidian": "1.13.1",
     "oxfmt": "0.71.0",
     "oxlint": "1.86.0",
+    "simple-git-hooks": "^2.14.0",
     "typescript": "^7.0.2",
     "vitest": "^5.0.2"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "pnpm exec commitlint --edit \"$1\""
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "packageManager": "pnpm@12.5.1"
 }

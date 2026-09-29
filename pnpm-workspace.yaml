@@ -2,8 +2,11 @@
 # esbuild needs its postinstall to place the platform-specific binary, so the
 # build cannot run without it. Declaring it keeps CI reproducible instead of
 # depending on an interactive `pnpm approve-builds`.
+# simple-git-hooks' postinstall is denied: the `prepare` script installs the
+# hooks instead, on every install rather than only the package's first.
 allowBuilds:
   esbuild: true
+  simple-git-hooks: false
 
 # Obsidian supplies CodeMirror at runtime and every `@codemirror/*` import is
 # external to the bundle, so the plugin always runs against the app's copies:
