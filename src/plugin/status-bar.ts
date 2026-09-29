@@ -84,7 +84,7 @@ export function presentStatus(model: StatusModel): StatusPresentation {
 
 	return {
 		text: 'Typst: ready',
-		icon: 'check-circle',
+		icon: 'circle-check',
 		tooltip: model.hasActiveDocument ? 'The document compiles without problems.' : 'Tinymist is running.',
 		modifier: 'ok'
 	}
