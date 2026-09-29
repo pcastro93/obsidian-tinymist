@@ -97,6 +97,7 @@ pnpm test:unit         # no Tinymist needed
 pnpm test:integration  # drives a real Tinymist
 pnpm test:watch        # vitest in watch mode
 pnpm validate:manifest
+pnpm check:codemirror  # CodeMirror packages accept the versions Obsidian ships
 ```
 
 All of these run in CI on Node 20, 22 and 24.

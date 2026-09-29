@@ -29,6 +29,7 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "pnpm run typecheck && node esbuild.config.mjs production",
+    "check:codemirror": "node scripts/check-codemirror.mjs",
     "dev": "node scripts/dev-vault.mjs && node esbuild.config.mjs",
     "dev:check": "tsc -noEmit -skipLibCheck --watch --preserveWatchOutput",
     "dev:hot-reload": "node scripts/install-hot-reload.mjs",

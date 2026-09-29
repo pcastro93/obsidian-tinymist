@@ -21,9 +21,20 @@ updates:
           - 'esbuild'
           - '@types/*'
     ignore:
-      # Pinned deliberately: it must match the CodeMirror instance Obsidian
-      # itself loads, which is decided by the app, not by this repository.
+      # Obsidian supplies CodeMirror at runtime, so these follow the app rather
+      # than npm. `obsidian` is bumped by hand, and `@codemirror/state` and
+      # `@codemirror/view` move with it, to the versions in its
+      # peerDependencies.
       - dependency-name: obsidian
+      - dependency-name: '@codemirror/state'
+      - dependency-name: '@codemirror/view'
+      # The first releases that need a newer `state` or `view` than Obsidian
+      # ships. When upgrading `obsidian`, lift these as far as its peers allow;
+      # `pnpm check:codemirror` fails in CI if one is lifted too far.
+      - dependency-name: '@codemirror/commands'
+        versions: ['>=6.10.3']
+      - dependency-name: '@codemirror/lint'
+        versions: ['>=6.9.6']
     # Titles release-please can read. A runtime dependency ships to users, so
     # its bump is a `fix` and releases a patch; a development one does not.
     commit-message:
