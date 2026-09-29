@@ -285,6 +285,10 @@ preview as a PDF via `pdfjs-dist`. Useful conclusions:
 **Typst Renderer** (`fenjalien/obsidian-typst`) renders Typst inside Markdown
 code blocks. Different product; it owns the `typst` plugin id.
 
+Plugins that, like this one, drive the real Tinymist binary are reviewed
+separately in [prior art](../prior-art.md), which is kept current rather than
+frozen at Phase 0.
+
 ---
 
 ## 4. Why a custom editor view, given the guidance to avoid one

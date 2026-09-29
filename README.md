@@ -286,14 +286,15 @@ Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md)
 for the development setup, and [SECURITY.md](SECURITY.md) to report a
 vulnerability privately.
 
-|                                                   |                                         |
-| ------------------------------------------------- | --------------------------------------- |
-| [Roadmap](ROADMAP.md)                             | What is planned, what is not, and why   |
-| [Architecture](docs/architecture/overview.md)     | How the pieces fit, and why             |
-| [Research](docs/architecture/research.md)         | Evidence behind the design decisions    |
-| [Testing](docs/testing.md)                        | The automated suite and the manual pass |
-| [Compliance](docs/community-plugin-compliance.md) | Against Obsidian's developer policies   |
-| [Risks](docs/risks.md)                            | Known weak points, honestly             |
+|                                                   |                                                           |
+| ------------------------------------------------- | --------------------------------------------------------- |
+| [Roadmap](ROADMAP.md)                             | What is planned, what is not, and why                     |
+| [Architecture](docs/architecture/overview.md)     | How the pieces fit, and why                               |
+| [Research](docs/architecture/research.md)         | Evidence behind the design decisions                      |
+| [Prior art](docs/prior-art.md)                    | Other takes on the same idea, and what is worth borrowing |
+| [Testing](docs/testing.md)                        | The automated suite and the manual pass                   |
+| [Compliance](docs/community-plugin-compliance.md) | Against Obsidian's developer policies                     |
+| [Risks](docs/risks.md)                            | Known weak points, honestly                               |
 
 ## Credits
 
