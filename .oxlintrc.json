@@ -1,12 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript",
-    "unicorn",
-    "oxc",
-    "promise",
-    "import"
-  ],
+  "plugins": ["typescript", "unicorn", "oxc", "promise", "import"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
@@ -16,14 +10,10 @@
   },
   "env": {
     "browser": true,
-    "es2021": true,
+    "es2022": true,
     "node": true
   },
-  "ignorePatterns": [
-    "node_modules",
-    "test-vault",
-    "dist"
-  ],
+  "ignorePatterns": ["node_modules", "test-vault", "dist"],
   "rules": {
     "eqeqeq": [
       "error",
@@ -67,14 +57,17 @@
     "obsidianmd/sample-names": "error",
     "obsidianmd/settings-tab/no-manual-html-headings": "error",
     "obsidianmd/settings-tab/no-problematic-settings-headings": "error",
-    "obsidianmd/ui/sentence-case": "warn",
+    "obsidianmd/ui/sentence-case": [
+      "warn",
+      {
+        "ignoreWords": ["Typst", "Tinymist"]
+      }
+    ],
     "obsidianmd/validate-license": "error"
   },
   "overrides": [
     {
-      "files": [
-        "src/**/*.ts"
-      ],
+      "files": ["src/**/*.ts"],
       "rules": {
         "no-console": "error",
         "no-alert": "error",
@@ -84,24 +77,23 @@
             "name": "app",
             "message": "Use this.app from the plugin instance; the global app object is for debugging only."
           }
-        ]
+        ],
+        "obsidianmd/no-plugin-as-component": "error",
+        "obsidianmd/no-unsupported-api": "error",
+        "obsidianmd/no-view-references-in-plugin": "error",
+        "obsidianmd/prefer-create-el": "error",
+        "obsidianmd/prefer-file-manager-trash-file": "error",
+        "obsidianmd/prefer-instanceof": "error"
       }
     },
     {
-      "files": [
-        "src/shared/logging.ts"
-      ],
+      "files": ["src/shared/logging.ts"],
       "rules": {
         "no-console": "off"
       }
     },
     {
-      "files": [
-        "tests/**/*.ts",
-        "scripts/**/*.mjs",
-        "*.mjs",
-        "*.mts"
-      ],
+      "files": ["tests/**/*.ts", "scripts/**/*.mjs", "*.mjs", "*.mts"],
       "rules": {
         "no-console": "off",
         "typescript/no-non-null-assertion": "off",
@@ -109,9 +101,7 @@
       }
     },
     {
-      "files": [
-        "tests/**/*.ts"
-      ],
+      "files": ["tests/**/*.ts"],
       "rules": {
         "unicorn/consistent-function-scoping": "off",
         "typescript/no-extraneous-class": "off",
@@ -119,12 +109,7 @@
       }
     },
     {
-      "files": [
-        "tests/**/*.ts",
-        "scripts/**/*.mjs",
-        "*.mjs",
-        "*.mts"
-      ],
+      "files": ["tests/**/*.ts", "scripts/**/*.mjs", "*.mjs", "*.mts"],
       "rules": {
         "obsidianmd/commands/no-command-in-command-id": "off",
         "obsidianmd/commands/no-command-in-command-name": "off",
@@ -153,6 +138,9 @@
     }
   ],
   "jsPlugins": [
-    "eslint-plugin-obsidianmd"
+    {
+      "name": "obsidianmd",
+      "specifier": "./scripts/oxlint-obsidianmd.mjs"
+    }
   ]
 }
