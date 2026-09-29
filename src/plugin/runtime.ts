@@ -1,6 +1,6 @@
 import { Notice, TFile, type App, type Plugin, type TFolder, type WorkspaceLeaf } from 'obsidian'
 
-import { BibliographyEditorView, BIBLIOGRAPHY_EDITOR_VIEW_TYPE } from '../editor/bibliography-editor-view'
+import { DataFileEditorView, DATA_FILE_EDITOR_VIEW_TYPE } from '../editor/data-file-editor-view'
 import { requestFormattingEdits } from '../editor/language-features'
 import { SourceEditorView } from '../editor/source-editor-view'
 import { TypstEditorView, TYPST_EDITOR_VIEW_TYPE } from '../editor/typst-editor-view'
@@ -31,7 +31,7 @@ import {
 	type PublishDiagnosticsParams,
 	type ShowDocumentParams
 } from '../typst/tinymist/protocol'
-import { BIBLATEX_EXTENSION, HAYAGRIVA_EXTENSIONS, TYPST_EXTENSION } from './constants'
+import { BIBLATEX_EXTENSION, DATA_EXTENSIONS, HAYAGRIVA_EXTENSIONS, TYPST_EXTENSION } from './constants'
 import { createFile, defaultNewFileFolder, isFolder } from './new-file'
 import { StatusBarItem, type CompilePhase } from './status-bar'
 
@@ -196,14 +196,14 @@ export class TypstRuntime {
 		)
 
 		this.plugin.registerView(
-			BIBLIOGRAPHY_EDITOR_VIEW_TYPE,
+			DATA_FILE_EDITOR_VIEW_TYPE,
 			(leaf: WorkspaceLeaf) =>
-				new BibliographyEditorView(leaf, {
+				new DataFileEditorView(leaf, {
 					...documentSync,
-					logger: this.logger.child('bibliography'),
+					logger: this.logger.child('data-file'),
 					// Registered, but without starting the server: a bibliography
-					// on its own gives Tinymist nothing to compile. The session
-					// replays it once a document that cites it starts one.
+					// or data file on its own gives Tinymist nothing to compile.
+					// The session replays it once a document that reads it starts one.
 					onDocumentOpened: (vaultPath, text) => {
 						this.session?.open(vaultPath, text)
 					}
@@ -214,17 +214,17 @@ export class TypstRuntime {
 		// like any other PDF in the vault.
 		this.plugin.registerExtensions([TYPST_EXTENSION], TYPST_EDITOR_VIEW_TYPE)
 		this.claimedExtensions.add(TYPST_EXTENSION)
-		this.claimExtension(BIBLATEX_EXTENSION, BIBLIOGRAPHY_EDITOR_VIEW_TYPE)
-		if (this.settings.openHayagrivaFiles) {
-			this.claimHayagrivaFiles()
+		this.claimExtension(BIBLATEX_EXTENSION, DATA_FILE_EDITOR_VIEW_TYPE)
+		if (this.settings.openDataFiles) {
+			this.claimDataFiles()
 		}
 	}
 
-	/** Claims each YAML extension on its own, so losing one keeps the other. */
-	private claimHayagrivaFiles(): void {
-		for (const extension of HAYAGRIVA_EXTENSIONS) {
+	/** Claims each data extension on its own, so losing one keeps the others. */
+	private claimDataFiles(): void {
+		for (const extension of DATA_EXTENSIONS) {
 			if (!this.ownsExtension(extension)) {
-				this.claimExtension(extension, BIBLIOGRAPHY_EDITOR_VIEW_TYPE)
+				this.claimExtension(extension, DATA_FILE_EDITOR_VIEW_TYPE)
 			}
 		}
 	}
@@ -859,8 +859,8 @@ export class TypstRuntime {
 		// extension back, so turning this off waits for the next start, which
 		// the setting's description says. `session` is set only once the views
 		// are registered, i.e. on a platform the plugin can serve at all.
-		if (this.settings.openHayagrivaFiles && this.session) {
-			this.claimHayagrivaFiles()
+		if (this.settings.openDataFiles && this.session) {
+			this.claimDataFiles()
 		}
 
 		// Tinymist reads most of this at initialize time, so a restart is the
@@ -951,9 +951,9 @@ export class TypstRuntime {
 		return null
 	}
 
-	/** Every open editor Tinymist is kept in step with, bibliographies included. */
+	/** Every open editor Tinymist is kept in step with, data files included. */
 	private forEachSourceView(callback: (view: SourceEditorView) => void): void {
-		for (const viewType of [TYPST_EDITOR_VIEW_TYPE, BIBLIOGRAPHY_EDITOR_VIEW_TYPE]) {
+		for (const viewType of [TYPST_EDITOR_VIEW_TYPE, DATA_FILE_EDITOR_VIEW_TYPE]) {
 			for (const leaf of this.app.workspace.getLeavesOfType(viewType)) {
 				if (leaf.view instanceof SourceEditorView) {
 					callback(leaf.view)

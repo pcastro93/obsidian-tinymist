@@ -153,23 +153,29 @@ The alternatives are **Always the vault root** (one project; `/`-absolute
 imports reach anywhere) and **A folder I choose**. Changing this restarts
 Tinymist, which reads it at startup.
 
-### Bibliographies
+### Bibliographies and data files
 
-`.bib` files open in a plain editor of their own, and **New BibLaTeX file** sits
-beside **New Typst file** in a folder's context menu. While a bibliography is
-open, the document citing it compiles against what you have typed — saved or
-not — and a syntax error in the bibliography is underlined in the bibliography
+The files a Typst document reads show in the file explorer and open in an editor
+of their own, with syntax highlighting in your theme's code colors:
+
+- BibLaTeX bibliographies (`.bib`), and Hayagriva ones (`.yml`, Typst's own
+  format). **New BibLaTeX file** and **New Hayagriva file** sit beside **New
+  Typst file** in a folder's context menu.
+- Data a document loads with `yaml()` or `toml()` (`.yml`, `.yaml`, `.toml`),
+  `typst.toml` included.
+
+While one of these is open, the document reading it compiles against what you
+have typed — saved or not — and a syntax error in it is underlined in the file
 itself.
 
-A bibliography you edit _outside_ Obsidian, or in another plugin, is not picked
-up until the citing document is reopened: Tinymist only follows files the
-plugin has open. If another plugin already opens `.bib` files, it keeps them,
-and the menu entry is not offered.
+A file you edit _outside_ Obsidian, or in another plugin, is not picked up
+until the document reading it is reopened: Tinymist only follows files the
+plugin has open. If another plugin already opens one of these extensions, it
+keeps them, and the matching menu entry is not offered.
 
-Hayagriva bibliographies (`.yml`, Typst's own format) are off by default,
-because Obsidian cannot tell a bibliography from any other YAML file: turning on
-**Editor → Open YAML files as Hayagriva bibliographies** opens _every_ `.yml`
-and `.yaml` in the vault this way, and adds **New Hayagriva file** to the menu.
+Opening YAML and TOML claims _every_ `.yml`, `.yaml`, and `.toml` in the vault,
+not only a document's. Turn off **Editor → Open YAML and TOML files** to leave
+them to another plugin.
 
 ## PDF export
 
@@ -185,20 +191,20 @@ a PDF renderer — opening any PDF uses Obsidian's own viewer.
 
 ## Settings
 
-| Setting                                     | Default        |                                               |
-| ------------------------------------------- | -------------- | --------------------------------------------- |
-| Tinymist executable                         | empty          | Empty means "find it automatically"           |
-| Project root                                | Automatic      | See [Projects](#projects)                     |
-| Preview refresh                             | As you type    | Or on save                                    |
-| Preview theme                               | Follow the app | Light, dark, or follow Obsidian               |
-| Sync with the editor                        | on             | Click the preview to move the caret, and back |
-| Show diagnostics                            | on             | Underline compiler errors                     |
-| Enable the formatter                        | on             |                                               |
-| Open YAML files as Hayagriva bibliographies | off            | Claims every `.yml`/`.yaml` in the vault      |
-| PDF folder                                  | empty          | Empty means "beside the document"             |
-| Replace existing PDFs                       | off            |                                               |
-| Use system fonts                            | on             |                                               |
-| Logging                                     | Off            | Raise to `debug` when reporting a problem     |
+| Setting                  | Default        |                                               |
+| ------------------------ | -------------- | --------------------------------------------- |
+| Tinymist executable      | empty          | Empty means "find it automatically"           |
+| Project root             | Automatic      | See [Projects](#projects)                     |
+| Preview refresh          | As you type    | Or on save                                    |
+| Preview theme            | Follow the app | Light, dark, or follow Obsidian               |
+| Sync with the editor     | on             | Click the preview to move the caret, and back |
+| Show diagnostics         | on             | Underline compiler errors                     |
+| Enable the formatter     | on             |                                               |
+| Open YAML and TOML files | on             | Claims every `.yml`/`.yaml`/`.toml`           |
+| PDF folder               | empty          | Empty means "beside the document"             |
+| Replace existing PDFs    | off            |                                               |
+| Use system fonts         | on             |                                               |
+| Logging                  | Off            | Raise to `debug` when reporting a problem     |
 
 ## Privacy and network use
 
@@ -299,7 +305,7 @@ Then [open an issue](https://github.com/wilfriedago/obsidian-tinymist/issues/new
 - Markdown features — backlinks, tags, the outline — do not apply to `.typ`.
 - Only one plugin can own the `.typ` extension. Do not enable another Typst
   editor plugin in the same vault.
-- Bibliographies are plain text: no highlighting or completion inside them.
+- Bibliographies and data files are highlighted, but offer no completion.
 - Changing the executable, project, font, or formatter settings restarts
   Tinymist.
 
