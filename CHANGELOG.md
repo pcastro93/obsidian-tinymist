@@ -23,6 +23,11 @@ release turns them into its section and its GitHub release notes.
   Hayagriva bibliographies** opens `.yml` and `.yaml` in the same editor and
   adds **New Hayagriva file**. It is off by default because it claims every
   YAML file in the vault, not only bibliographies.
+- **Search bar themes.** **Editor → Search bar theme** restyles the
+  find-and-replace bar. **Follow the app** (the default) takes its colours
+  from whichever Obsidian theme is active; Catppuccin, Dracula, Monokai,
+  Solarized, and One use their own palettes. Themes with a light and a dark
+  variant follow the app.
 
 ### Changed
 
