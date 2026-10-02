@@ -18,6 +18,8 @@
 
 	--tinymist-selection-alpha: 0.22;
 	--tinymist-selection-alpha-blurred: 0.12;
+	/* Other occurrences of the selected word; kept below the selection's alpha. */
+	--tinymist-selection-match-alpha: 0.16;
 	--tinymist-selection: hsla(var(--accent-h), var(--accent-s), var(--accent-l), var(--tinymist-selection-alpha));
 	--tinymist-selection-blurred: hsla(var(--accent-h), var(--accent-s), var(--accent-l), var(--tinymist-selection-alpha-blurred));
 
@@ -78,7 +80,9 @@
 
 	/* Sits under the selection, so it has to stay distinguishable from it. */
 	.cm-editor .cm-selectionMatch {
-		background-color: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12);
+		background-color: hsla(var(--accent-h), var(--accent-s), var(--accent-l), var(--tinymist-selection-match-alpha));
+		outline: 1px solid hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5);
+		border-radius: 2px;
 	}
 
 	.cm-activeLineGutter {
@@ -119,8 +123,9 @@
 
 /* Dark themes need a touch more opacity to register as a selection. */
 .theme-dark .tinymist-editor {
-	--tinymist-selection-alpha: 0.32;
-	--tinymist-selection-alpha-blurred: 0.18;
+	--tinymist-selection-alpha: 0.5;
+	--tinymist-selection-alpha-blurred: 0.28;
+	--tinymist-selection-match-alpha: 0.4;
 }
 
 /* ---- Search bar --------------------------------------------------------- */

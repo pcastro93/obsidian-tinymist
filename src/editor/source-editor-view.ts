@@ -278,7 +278,8 @@ export abstract class SourceEditorView<Host extends SourceEditorHost = SourceEdi
 			closeBrackets(),
 			rectangularSelection(),
 			highlightActiveLine(),
-			highlightSelectionMatches(),
+			// Whole words only, so a selected `cite` does not light up inside `cited` or `cites`.
+			highlightSelectionMatches({ wholeWords: true, minSelectionLength: 2, maxMatches: 500 }),
 			search({ top: true }),
 			lintGutter(),
 			this.diagnosticsCompartment.of([]),

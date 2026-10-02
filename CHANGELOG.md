@@ -35,6 +35,9 @@ release turns them into its section and its GitHub release notes.
   title, as it is for a new note or canvas, or asked for in a dialog when the
   tab title bar is hidden. Typst and bibliography tabs can also be renamed from
   their title now; before, it was read-only.
+- **Selecting a word highlights its other occurrences more visibly.** Matches
+  are outlined and tinted, whole words only, and ignore one-character
+  selections. Dark themes also get a stronger selection to stay above them.
 
 ### Fixed
 
