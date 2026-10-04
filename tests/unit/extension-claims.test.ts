@@ -34,24 +34,25 @@ describe('claiming a contested extension', () => {
 		expect(runtime.ownsExtension('bib')).toBe(false)
 	})
 
-	it('claims the two YAML extensions independently', () => {
+	it('claims each data extension independently', () => {
 		vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		const { runtime } = runtimeWith(([extension]) => {
 			if (extension === 'yaml') {
 				throw new Error('Attempting to register an existing file extension')
 			}
 		})
-		;(runtime as unknown as { claimHayagrivaFiles(): void }).claimHayagrivaFiles()
+		;(runtime as unknown as { claimDataFiles(): void }).claimDataFiles()
 		expect(runtime.ownsExtension('yml')).toBe(true)
 		expect(runtime.ownsExtension('yaml')).toBe(false)
+		expect(runtime.ownsExtension('toml')).toBe(true)
 	})
 
-	it('does not claim a YAML extension twice when the setting is toggled again', () => {
+	it('does not claim a data extension twice when the setting is toggled again', () => {
 		const register = vi.fn()
 		const { runtime } = runtimeWith(register)
-		const claimAll = () => (runtime as unknown as { claimHayagrivaFiles(): void }).claimHayagrivaFiles()
+		const claimAll = () => (runtime as unknown as { claimDataFiles(): void }).claimDataFiles()
 		claimAll()
 		claimAll()
-		expect(register).toHaveBeenCalledTimes(2)
+		expect(register).toHaveBeenCalledTimes(3)
 	})
 })

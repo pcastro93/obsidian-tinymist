@@ -214,10 +214,10 @@ export class TypstSettingTab extends PluginSettingTab {
 					control: { type: 'toggle', key: 'formatterEnabled' }
 				},
 				{
-					name: 'Open YAML files as Hayagriva bibliographies',
-					desc: 'Every .yml and .yaml file in the vault will open in the bibliography editor, not only bibliographies. Turning this off takes effect after restarting Obsidian.',
-					aliases: ['hayagriva', 'yaml', 'yml', 'bibliography', 'citations'],
-					control: { type: 'toggle', key: 'openHayagrivaFiles' }
+					name: 'Open YAML and TOML files',
+					desc: 'Show .yml, .yaml, and .toml files in the vault and open them in the plugin, for Hayagriva bibliographies, typst.toml, and data a document loads. Turn this off to leave them to another plugin; that takes effect after restarting Obsidian.',
+					aliases: ['hayagriva', 'yaml', 'yml', 'toml', 'bibliography', 'citations', 'data'],
+					control: { type: 'toggle', key: 'openDataFiles' }
 				}
 			]
 		}

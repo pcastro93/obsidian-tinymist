@@ -8,7 +8,7 @@ allowBuilds:
   esbuild: true
   simple-git-hooks: false
 
-# Obsidian supplies CodeMirror at runtime and every `@codemirror/*` import is
+# Obsidian supplies CodeMirror at runtime and its `@codemirror/*` packages are
 # external to the bundle, so the plugin always runs against the app's copies:
 # the `@codemirror/state` and `@codemirror/view` pinned by `obsidian`'s peer
 # dependencies. `codemirror-lang-typst` asks for newer ones, which would install

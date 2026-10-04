@@ -13,16 +13,20 @@ release turns them into its section and its GitHub release notes.
 
 - **BibLaTeX bibliographies open in Obsidian.** `.bib` files were not
   registered, so Obsidian hid them and could not open them, even though Typst
-  read them fine. They now open in a plain editor, and **New BibLaTeX file** is
+  read them fine. They now open in an editor of their own, highlighted, and
+  **New BibLaTeX file** is
   offered beside **New Typst file**. An open bibliography is kept in step with
   Tinymist, so a citing document compiles against unsaved edits and a parse
   error is underlined in the bibliography itself. If another plugin already
   opens `.bib` files, it keeps them. Requested in
   [#11](https://github.com/wilfriedago/obsidian-tinymist/issues/11).
-- **Hayagriva bibliographies, opt-in.** **Editor → Open YAML files as
-  Hayagriva bibliographies** opens `.yml` and `.yaml` in the same editor and
-  adds **New Hayagriva file**. It is off by default because it claims every
-  YAML file in the vault, not only bibliographies.
+- **YAML and TOML files open in Obsidian, Hayagriva bibliographies
+  included.** `.yml`, `.yaml`, and `.toml` were hidden like `.bib`. They now
+  open in the same editor, highlighted, and a document that reads one — a
+  Hayagriva bibliography, `typst.toml`, or data loaded with `yaml()` or
+  `toml()` — compiles against unsaved edits. **New Hayagriva file** joins the
+  menu. This claims every such file in the vault, so **Editor → Open YAML and
+  TOML files** can hand them to another plugin instead.
 
 ### Changed
 

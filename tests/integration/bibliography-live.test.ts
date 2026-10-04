@@ -50,6 +50,20 @@ async function nextOutcome(action: () => void, timeoutMs = 25_000): Promise<stri
 	return null
 }
 
+/** Waits for Tinymist to go quiet, so a status left over from an earlier step is not read as the next one's. */
+async function waitForQuiet(quietMs = 1_000, timeoutMs = 10_000): Promise<void> {
+	const deadline = Date.now() + timeoutMs
+	let seen = statuses.length
+	let quietSince = Date.now()
+	while (Date.now() - quietSince < quietMs && Date.now() < deadline) {
+		await new Promise((r) => setTimeout(r, 100))
+		if (statuses.length !== seen) {
+			seen = statuses.length
+			quietSince = Date.now()
+		}
+	}
+}
+
 async function tinymistIsAvailable(): Promise<boolean> {
 	return await new Promise((settle) => {
 		try {
@@ -145,5 +159,19 @@ describe.runIf(process.env['SKIP_TINYMIST_TESTS'] !== '1')('bibliographies, live
 		expect(await nextOutcome(() => session.open(yml, extended))).toBe('compileSuccess')
 		session.close(yml)
 		session.close(main)
+	})
+
+	it('reads an unsaved data file through toml(), typst.toml included', async () => {
+		if (!available) return
+		const manifest = 'project/typst.toml'
+		// Passes against the file on disk, so a failure below is the buffer being read.
+		const reading = '#let m = toml("typst.toml")\n#assert(m.package.name == "fixture-paper")\n'
+		// Reopened: the Hayagriva document above became the one Tinymist compiles.
+		session.close(MAIN)
+		await waitForQuiet()
+		expect(await nextOutcome(() => session.open(MAIN, reading))).toBe('compileSuccess')
+		const renamed = onDisk(manifest).replace(/^name = .*$/m, 'name = "unsaved-name"')
+		expect(await nextOutcome(() => session.open(manifest, renamed))).toBe('compileError')
+		expect(await nextOutcome(() => session.close(manifest))).toBe('compileSuccess')
 	})
 })
