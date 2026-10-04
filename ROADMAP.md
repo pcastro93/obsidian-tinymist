@@ -156,6 +156,27 @@ confusing rather than explained. The plugin should notice and say so plainly.
 
 Tracked as [R3](docs/risks.md#r3-only-one-plugin-can-own-typ).
 
+### Open a linked file with Mod-click
+
+A Typst document points at other files constantly — `image("assets/diagram.svg")`,
+`#bibliography("refs.bib")`, `#include "chapter.typ"`, `yaml("data.yml")` — and
+today the only way to follow one is the file explorer. In a Markdown note the
+same reach is one click.
+
+- **Mod-click** (Cmd on macOS, Ctrl elsewhere) on a path opens that file _in
+  place_ of the current document, the way following a link in a note does.
+- **Mod-Shift-click** opens it in a new tab and leaves the current document
+  where it is.
+- The target opens in whatever view owns its extension: the Typst editor, the
+  data file editor, Obsidian's own image or PDF view.
+- The underline appears on hover with the modifier held, so a path that will
+  open looks like one.
+
+Tinymist already knows what each path resolves to — its hover offers "Open in
+Tab" for exactly these strings — so this is resolving a position to a file,
+not reimplementing Typst's path rules. The hover's own links should go
+through the same code path rather than a second one.
+
 ---
 
 ## Considering
@@ -247,6 +268,27 @@ work against the Typst package registry, so "new from a Typst Universe
 template" is available without the plugin managing template files itself. That
 is probably a better first version than a vault folder of templates, because it
 starts useful rather than empty.
+
+### Keyboard navigation in the preview
+
+Reading a long document in the preview means reaching for the mouse. It should
+answer the keys a reader expects:
+
+- **Up / Down** scroll by a line's worth
+- **Left / Right** move to the previous or next page
+
+The obstacle is the isolation the preview is built on. The rendered document
+lives in a cross-origin iframe (see
+[the architecture notes](docs/architecture/overview.md)), so keys pressed
+inside it never reach Obsidian, and Obsidian cannot scroll it from outside.
+That rules out the obvious implementation, and loosening the isolation to get
+it is not on the table.
+
+So the open question comes first: does Tinymist's preview frontend already
+handle these keys, or expose a way to scroll by page from the server side? If
+it does, this is a focus problem — making sure the frame has focus when the
+preview does. If it does not, the right place for it is upstream, where every
+editor gets it.
 
 ---
 
