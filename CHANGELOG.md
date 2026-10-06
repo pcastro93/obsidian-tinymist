@@ -11,23 +11,42 @@ release turns them into its section and its GitHub release notes.
 
 ### Added
 
-- **BibLaTeX bibliographies open in Obsidian.** `.bib` files were not
-  registered, so Obsidian hid them and could not open them, even though Typst
-  read them fine. They now open in a plain editor, and **New BibLaTeX file** is
-  offered beside **New Typst file**. An open bibliography is kept in step with
-  Tinymist, so a citing document compiles against unsaved edits and a parse
-  error is underlined in the bibliography itself. If another plugin already
-  opens `.bib` files, it keeps them. Requested in
-  [#11](https://github.com/wilfriedago/obsidian-tinymist/issues/11).
-- **Hayagriva bibliographies, opt-in.** **Editor → Open YAML files as
-  Hayagriva bibliographies** opens `.yml` and `.yaml` in the same editor and
-  adds **New Hayagriva file**. It is off by default because it claims every
-  YAML file in the vault, not only bibliographies.
 - **Search bar themes.** **Editor → Search bar theme** restyles the
   find-and-replace bar. **Follow the app** (the default) takes its colours
   from whichever Obsidian theme is active; Catppuccin, Dracula, Monokai,
   Solarized, and One use their own palettes. Themes with a light and a dark
   variant follow the app.
+
+## [0.5.1](https://github.com/wilfriedago/obsidian-tinymist/compare/0.5.0...0.5.1) (2026-10-06)
+
+### Added
+
+- **A Support group at the bottom of the settings.** Two buttons — **Star on
+  GitHub** and **Buy me a coffee** — that open in your browser when clicked,
+  and do nothing otherwise: no popups, no startup notices, no network
+  requests. The manifest also declares the funding link, so Obsidian shows it
+  beside the plugin.
+
+## [0.5.0](https://github.com/wilfriedago/obsidian-tinymist/compare/0.4.0...0.5.0) (2026-10-05)
+
+### Added
+
+- **BibLaTeX bibliographies open in Obsidian.** `.bib` files were not
+  registered, so Obsidian hid them and could not open them, even though Typst
+  read them fine. They now open in an editor of their own, highlighted, and
+  **New BibLaTeX file** is offered beside **New Typst file**. An open
+  bibliography is kept in step with Tinymist, so a citing document compiles
+  against unsaved edits and a parse error is underlined in the bibliography
+  itself. If another plugin already opens `.bib` files, it keeps them.
+  Requested in
+  [#11](https://github.com/wilfriedago/obsidian-tinymist/issues/11).
+- **YAML and TOML files open in Obsidian, Hayagriva bibliographies
+  included.** `.yml`, `.yaml`, and `.toml` were hidden like `.bib`. They now
+  open in the same editor, highlighted, and a document that reads one — a
+  Hayagriva bibliography, `typst.toml`, or data loaded with `yaml()` or
+  `toml()` — compiles against unsaved edits. **New Hayagriva file** joins the
+  menu. This claims every such file in the vault, so **Editor → Open YAML and
+  TOML files** can hand them to another plugin instead.
 
 ### Changed
 
@@ -38,12 +57,19 @@ release turns them into its section and its GitHub release notes.
 
 ### Fixed
 
-- **Ctrl/Cmd+F opens the search bar in Typst and bibliography editors.**
+- **Ctrl/Cmd+F opens the search bar in Typst, bibliography, and data files.**
   Obsidian's own find hotkeys took the key first and only act on Markdown
   notes, so nothing happened. **Ctrl/Cmd+Alt+F** opens the same bar with the
-  cursor in the replace field.
+  cursor in the replace field. Thanks to
+  [@pcastro93](https://github.com/pcastro93) in
+  [#22](https://github.com/wilfriedago/obsidian-tinymist/pull/22).
+- **A stray `@` no longer breaks BibTeX highlighting.** The BibTeX tokenizer
+  now handles it correctly, so the rest of the file stays highlighted. Fixed in
+  [#38](https://github.com/wilfriedago/obsidian-tinymist/issues/38).
+- **The ready-status icon now matches the ready state.** `presentStatus` now
+  uses the correct icon for that status.
 
-## [0.4.0] - 2026-09-22
+## [0.4.0](https://github.com/wilfriedago/obsidian-tinymist/compare/0.3.1...0.4.0) - 2026-09-22
 
 ### Added
 
@@ -62,7 +88,7 @@ release turns them into its section and its GitHub release notes.
   [@jas-ho](https://github.com/jas-ho) in
   [#10](https://github.com/wilfriedago/obsidian-tinymist/pull/10).
 
-## [0.3.1] - 2026-09-22
+## [0.3.1](https://github.com/wilfriedago/obsidian-tinymist/compare/0.3.0...0.3.1) - 2026-09-22
 
 ### Fixed
 
@@ -70,7 +96,7 @@ release turns them into its section and its GitHub release notes.
   promise, so awaiting it did nothing. No behaviour changes: the layout was
   already being saved on Obsidian's own schedule.
 
-## [0.3.0] - 2026-09-22
+## [0.3.0](https://github.com/wilfriedago/obsidian-tinymist/compare/0.2.1...0.3.0) - 2026-09-22
 
 ### Added
 
@@ -100,7 +126,7 @@ release turns them into its section and its GitHub release notes.
 
 Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
 
-## [0.2.1] - 2026-09-18
+## [0.2.1](https://github.com/wilfriedago/obsidian-tinymist/compare/0.2.0...0.2.1) - 2026-09-18
 
 ### Fixed
 
@@ -112,7 +138,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
 - Switching the preview theme now says **Reloading…** while it happens, instead
   of going blank without explanation.
 
-## [0.2.0] - 2026-09-18
+## [0.2.0](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.7...0.2.0) - 2026-09-18
 
 ### Added
 
@@ -122,7 +148,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
   Obsidian's own **New note** always makes Markdown and its dropdown cannot be
   extended, so until now a `.typ` file had to be created some other way.
 
-## [0.1.7] - 2026-09-18
+## [0.1.7](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.6...0.1.7) - 2026-09-18
 
 ### Fixed
 
@@ -147,7 +173,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
 
   `--tinymist-selection` is exposed for themes and snippets to override.
 
-## [0.1.6] - 2026-09-18
+## [0.1.6](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.5...0.1.6) - 2026-09-18
 
 ### Fixed
 
@@ -170,7 +196,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
   from a shared pool, so the exact byte range has to be copied out rather than
   the whole backing store handed to the vault.
 
-## [0.1.5] - 2026-09-17
+## [0.1.5](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.4...0.1.5) - 2026-09-17
 
 ### Fixed
 
@@ -188,7 +214,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
 - The "not found" message now names this cause instead of implying Tinymist is
   not installed, and reports the `PATH` that was searched.
 
-## [0.1.4] - 2026-09-17
+## [0.1.4](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.3...0.1.4) - 2026-09-17
 
 ### Removed
 
@@ -207,7 +233,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
 - A failed startup now distinguishes "no such file", "exists but could not be
   run", and "ran but failed", so the message says what to do about it.
 
-## [0.1.3] - 2026-09-17
+## [0.1.3](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.2...0.1.3) - 2026-09-17
 
 ### Changed
 
@@ -219,7 +245,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
   `loadData`, so a bad value cannot reach storage at all rather than being
   corrected on the next load.
 
-## [0.1.2] - 2026-09-17
+## [0.1.2](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.1...0.1.2) - 2026-09-17
 
 ### Changed
 
@@ -235,7 +261,7 @@ Reported in [#7](https://github.com/wilfriedago/obsidian-tinymist/issues/7).
   lint exemption that had been hiding this was removed rather than widened; the
   Node test host supplies a `window` instead.
 
-## [0.1.1] - 2026-09-17
+## [0.1.1](https://github.com/wilfriedago/obsidian-tinymist/compare/0.1.0...0.1.1) - 2026-09-17
 
 ### Fixed
 

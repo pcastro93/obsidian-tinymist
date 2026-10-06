@@ -1,7 +1,10 @@
-import { PluginSettingTab, type App, type Plugin, type SettingDefinitionItem } from 'obsidian'
+import { PluginSettingTab, type App, type Plugin, type SettingDefinition, type SettingDefinitionItem } from 'obsidian'
 
 import { LOG_LEVELS } from '../shared/logging'
 import { isSettingKey, type TypstSettings } from './settings'
+
+const REPOSITORY_URL = 'https://github.com/wilfriedago/obsidian-tinymist'
+const FUNDING_URL = 'https://www.buymeacoffee.com/wilfriedago'
 
 /**
  * The settings screen, defined declaratively.
@@ -74,7 +77,8 @@ export class TypstSettingTab extends PluginSettingTab {
 			this.previewGroup(),
 			this.editorGroup(),
 			this.exportGroup(),
-			this.advancedGroup()
+			this.advancedGroup(),
+			this.supportGroup()
 		]
 	}
 
@@ -231,10 +235,10 @@ export class TypstSettingTab extends PluginSettingTab {
 					}
 				},
 				{
-					name: 'Open YAML files as Hayagriva bibliographies',
-					desc: 'Every .yml and .yaml file in the vault will open in the bibliography editor, not only bibliographies. Turning this off takes effect after restarting Obsidian.',
-					aliases: ['hayagriva', 'yaml', 'yml', 'bibliography', 'citations'],
-					control: { type: 'toggle', key: 'openHayagrivaFiles' }
+					name: 'Open YAML and TOML files',
+					desc: 'Show .yml, .yaml, and .toml files in the vault and open them in the plugin, for Hayagriva bibliographies, typst.toml, and data a document loads. Turn this off to leave them to another plugin; that takes effect after restarting Obsidian.',
+					aliases: ['hayagriva', 'yaml', 'yml', 'toml', 'bibliography', 'citations', 'data'],
+					control: { type: 'toggle', key: 'openDataFiles' }
 				}
 			]
 		}
@@ -290,6 +294,34 @@ export class TypstSettingTab extends PluginSettingTab {
 		}
 	}
 
+	/**
+	 * Last, below everything that configures the plugin. Two static links,
+	 * opened in the browser only when clicked: nothing here runs at startup,
+	 * prompts, or reaches the network on its own.
+	 */
+	private supportGroup(): SettingDefinitionItem {
+		return {
+			type: 'group',
+			heading: 'Support',
+			items: [
+				linkButton({
+					name: 'Enjoying Tinymist?',
+					desc: 'If Tinymist is useful to you, consider starring the project on GitHub. It helps other Obsidian and Typst users discover it.',
+					aliases: ['star', 'github', 'repository'],
+					button: 'Star on GitHub',
+					url: REPOSITORY_URL
+				}),
+				linkButton({
+					name: 'Support development',
+					desc: "Tinymist for Obsidian is free and open source. If you'd like to support continued development, you can buy me a coffee. Thank you for using Tinymist.",
+					aliases: ['donate', 'sponsor', 'funding', 'coffee'],
+					button: 'Buy me a coffee',
+					url: FUNDING_URL
+				})
+			]
+		}
+	}
+
 	/** The server's state and detected versions, shown under the restart row. */
 	private statusText(): string {
 		const parts = [this.host.describeServerState()]
@@ -306,6 +338,25 @@ export class TypstSettingTab extends PluginSettingTab {
 
 		parts.push(this.host.describeExecutable())
 		return parts.join(' · ')
+	}
+}
+
+/**
+ * A row whose button opens an external page. Obsidian hands `window.open` on
+ * an http(s) URL to the system browser, so no request is made from the app.
+ */
+function linkButton(link: { name: string; desc: string; aliases: string[]; button: string; url: string }): SettingDefinition {
+	return {
+		name: link.name,
+		desc: link.desc,
+		aliases: link.aliases,
+		render: (setting) => {
+			setting.addButton((button) =>
+				button.setButtonText(link.button).onClick(() => {
+					window.open(link.url)
+				})
+			)
+		}
 	}
 }
 

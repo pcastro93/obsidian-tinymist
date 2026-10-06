@@ -43,8 +43,8 @@ export interface TypstSettings {
 	showDiagnostics: boolean
 	formatterEnabled: boolean
 	searchBarTheme: SearchBarTheme
-	/** Open `.yml`/`.yaml` as Hayagriva bibliographies. Claims every YAML file. */
-	openHayagrivaFiles: boolean
+	/** Open `.yml`, `.yaml`, and `.toml` in the plugin. Claims every such file. */
+	openDataFiles: boolean
 	systemFonts: boolean
 
 	/** Vault-relative folder for exported PDFs. Empty means "beside the source". */
@@ -67,7 +67,7 @@ export const DEFAULT_SETTINGS: TypstSettings = {
 	showDiagnostics: true,
 	formatterEnabled: true,
 	searchBarTheme: 'obsidian',
-	openHayagrivaFiles: false,
+	openDataFiles: true,
 	systemFonts: true,
 	exportFolder: '',
 	exportOverwrite: false
@@ -102,7 +102,7 @@ export function migrateSettings(raw: unknown): TypstSettings {
 		showDiagnostics: asBoolean(stored['showDiagnostics'], DEFAULT_SETTINGS.showDiagnostics),
 		formatterEnabled: asBoolean(stored['formatterEnabled'], DEFAULT_SETTINGS.formatterEnabled),
 		searchBarTheme: asEnum(stored['searchBarTheme'], SEARCH_BAR_THEMES, DEFAULT_SETTINGS.searchBarTheme),
-		openHayagrivaFiles: asBoolean(stored['openHayagrivaFiles'], DEFAULT_SETTINGS.openHayagrivaFiles),
+		openDataFiles: asBoolean(stored['openDataFiles'], DEFAULT_SETTINGS.openDataFiles),
 		systemFonts: asBoolean(stored['systemFonts'], DEFAULT_SETTINGS.systemFonts),
 		exportFolder: asString(stored['exportFolder'], DEFAULT_SETTINGS.exportFolder),
 		exportOverwrite: asBoolean(stored['exportOverwrite'], DEFAULT_SETTINGS.exportOverwrite)

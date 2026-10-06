@@ -107,7 +107,7 @@ Each line is pass/fail, with the acceptance criterion it comes from.
 - [ ] An existing `.typ` or `.bib` can be renamed by clicking its tab title, and the preview follows the new name.
 - [ ] Doing it again creates `Untitled 1.typ` rather than failing.
 - [ ] **Typst: Create new Typst file** puts the file where the "Default location for new notes" setting points.
-- [ ] The same menu offers **New BibLaTeX file**, which creates `Untitled.bib` and opens it in the bibliography editor.
+- [ ] The same menu offers **New BibLaTeX file**, which creates `Untitled.bib` and opens it in the data file editor.
 - [ ] **Typst: Create new BibLaTeX file** is offered in the command palette.
 - [ ] With another plugin that registers `.bib` enabled first, the plugin still loads, `.typ` still opens, and neither the menu entry nor the command is offered.
 
@@ -169,12 +169,14 @@ _Following the active document_
 **Projects**
 
 - [ ] `project/main.typ` compiles: the template, bibliography, and `assets/diagram.svg` all resolve.
-- [ ] `project/bibliography.bib` shows in the file explorer and opens in the bibliography editor, with the book icon in its tab.
+- [ ] `project/bibliography.bib` shows in the file explorer and opens in the data file editor, with the book icon in its tab and entry types, keys, fields, and values highlighted in the theme's code colors, in light and dark themes.
 - [ ] With `main.typ` previewed beside it, adding an entry to the `.bib` and citing it updates the preview before the `.bib` is saved.
 - [ ] Deleting a closing brace in the `.bib` underlines the error in the `.bib`; restoring it clears the underline.
 - [ ] Renaming the `.bib` while it is open keeps the preview compiling once `main.typ` points at the new name.
-- [ ] With **Open YAML files as Hayagriva bibliographies** off, `hayagriva/references.yml` does not open in the plugin, and **New Hayagriva file** is not offered.
-- [ ] Turning it on makes `references.yml` open in the bibliography editor straight away, without a restart, and offers **New Hayagriva file**, which creates `Untitled.yml`.
+- [ ] In a fresh vault, `hayagriva/references.yml` and `project/typst.toml` show in the file explorer and open in the data file editor, highlighted, and **New Hayagriva file** creates `Untitled.yml`.
+- [ ] With **Open YAML and TOML files** off and Obsidian restarted, neither shows or opens in the plugin, and **New Hayagriva file** is not offered; turning it back on opens them straight away, without a restart.
+- [ ] Renaming an open `.bib` to `.yml` switches its highlighting without reopening it.
+- [ ] With `project/main.typ` reading `toml("typst.toml")` and previewed, an unsaved edit to `typst.toml` reaches the preview.
 - [ ] With `hayagriva/main.typ` previewed, citing a key added to the unsaved `references.yml` updates the preview.
 - [ ] **Typst: Show project root** reports `project (typst.toml)`.
 - [ ] For `basic.typ` it reports the file's own folder.

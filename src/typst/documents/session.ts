@@ -187,6 +187,8 @@ export function languageIdFor(vaultPath: VaultPath): string {
 		case 'yml':
 		case 'yaml':
 			return 'yaml'
+		case 'toml':
+			return 'toml'
 		default:
 			return 'typst'
 	}

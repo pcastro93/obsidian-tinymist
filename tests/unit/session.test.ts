@@ -193,6 +193,10 @@ describe('bibliographies', () => {
 		expect(languageIdFor('refs.yaml')).toBe('yaml')
 	})
 
+	it('announces a TOML file as TOML', () => {
+		expect(languageIdFor('paper/typst.toml')).toBe('toml')
+	})
+
 	it('replays an open bibliography after a restart', () => {
 		const { session, client, methods } = setup()
 		session.open('paper/refs.bib', 'unsaved entry')
