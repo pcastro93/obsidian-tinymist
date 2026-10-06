@@ -109,14 +109,13 @@ describe('normalizing a write', () => {
 	})
 })
 
-describe('Hayagriva files', () => {
-	it('are not claimed unless the user opts in', () => {
-		// Claiming `.yml` claims every YAML file in the vault.
-		expect(migrateSettings({}).openHayagrivaFiles).toBe(false)
+describe('YAML and TOML files', () => {
+	it('are claimed by default, so Obsidian shows them', () => {
+		expect(migrateSettings({}).openDataFiles).toBe(true)
 	})
 
-	it('keeps a stored opt-in and rejects a non-boolean', () => {
-		expect(migrateSettings({ openHayagrivaFiles: true }).openHayagrivaFiles).toBe(true)
-		expect(migrateSettings({ openHayagrivaFiles: 'yes' }).openHayagrivaFiles).toBe(false)
+	it('keeps a stored opt-out and rejects a non-boolean', () => {
+		expect(migrateSettings({ openDataFiles: false }).openDataFiles).toBe(false)
+		expect(migrateSettings({ openDataFiles: 'no' }).openDataFiles).toBe(true)
 	})
 })

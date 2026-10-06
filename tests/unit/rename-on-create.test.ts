@@ -1,7 +1,7 @@
 import { View, type App, type TFolder, type WorkspaceLeaf } from 'obsidian'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { BibliographyEditorView } from '../../src/editor/bibliography-editor-view'
+import { DataFileEditorView } from '../../src/editor/data-file-editor-view'
 import type { SourceEditorHost } from '../../src/editor/source-editor-view'
 import { createFile } from '../../src/plugin/new-file'
 
@@ -32,7 +32,7 @@ describe('a newly created file', () => {
 describe('the editor behind the tab title', () => {
 	afterEach(() => vi.restoreAllMocks())
 
-	const view = () => new BibliographyEditorView({} as WorkspaceLeaf, {} as SourceEditorHost)
+	const view = () => new DataFileEditorView({} as WorkspaceLeaf, {} as SourceEditorHost)
 
 	it('runs Obsidian’s own setup, which is what makes the title editable', async () => {
 		// `protected` in Obsidian's typings, public at runtime.
